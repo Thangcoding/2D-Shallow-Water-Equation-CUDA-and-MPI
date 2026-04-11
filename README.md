@@ -232,6 +232,45 @@ mpirun -np num_process ./mpi_solver
 
 ```bash
 py simulation.py
+
+
+
+---
+
+# Demo
+
+The simulation provides two visualization modes to illustrate the behavior of the **2D Shallow Water Equations**.
+
+## 3D Surface Simulation
+
+This visualization shows the **water height field** as a three-dimensional surface evolving over time.
+
+
+Example:
+
+![3D Simulation](demo/2D-water-Reflective.gif)
+
+ 
+
+---
+
+## Vector Field Simulation
+
+This visualization displays the **velocity field (u, v)** as vectors on the simulation grid.
+
+
+Example:
+
+![Vector Field](demo/2D-water-Reflective-vector-field.gif)
+
+---
+
+## Initial Conditions
+
+Two types of boundary conditions are demonstrated:
+
+- **Reflective boundary** — waves reflect when reaching the domain boundaries.
+- **Transmissive boundary** — waves propagate out of the domain without reflection.
 ```
 
 
