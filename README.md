@@ -232,8 +232,7 @@ mpirun -np num_process ./mpi_solver
 
 ```bash
 py simulation.py
-
-
+```
 
 ---
 
