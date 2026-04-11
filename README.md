@@ -197,9 +197,9 @@ The simulation workflow consists of **two main steps**:
 1. Compile the numerical solvers (Sequential / MPI / CUDA).
 2. Run the Python simulation script to execute the simulation and generate visualizations.
 
----
 
-## Step 1 — Compile the Solvers
+
+##Step 1 — Compile the Solvers
 
 Navigate to the project directory:
 
