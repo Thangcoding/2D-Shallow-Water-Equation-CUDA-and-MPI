@@ -199,7 +199,7 @@ The simulation workflow consists of **two main steps**:
 
 ---
 
-## Step 1 — Compile the Solvers
+ Step 1 — Compile the Solvers
 
 Navigate to the project directory:
 
@@ -224,9 +224,7 @@ mpicxx mpi_solver.cpp -o mpi_solver
 ```bash
 mpirun -np num_process ./mpi_solver
 
----
-
-## Step 2 -  running simulation programme
+Step 2 -  running simulation programme
 
 ```bash
 py simulation.py
