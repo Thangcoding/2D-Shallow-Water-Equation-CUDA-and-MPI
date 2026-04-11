@@ -348,9 +348,17 @@ int main(int argc, char *argv[]) {
     if (RANK == 0) {
         fp = fopen("shallow_water_simulation.json", "w");
         if (!fp) { perror("Failed to open file"); MPI_Abort(MPI_COMM_WORLD, 1); }
-        fprintf(fp, "{\n\"H\": %f,\n\"X\": %f,\n\"Y\": %f,\n\"time\": %f,\n\"delta_x\": %f,\n\"delta_y\": %f,\n",
-                H, X, Y, time, delta_x, delta_y);
-        fprintf(fp, "\"name\": \"lax wendroff finite difference\" \n");
+
+        // store configuration 
+        fprintf(fp, "{\n"); 
+        fprintf(fp, "\"name\": \"lax wendroff finite difference\",\n");
+        fprintf(fp, "\"condition\": \"Transitive\",\n");
+        fprintf(fp, "\"H\": %f,\n", H); 
+        fprintf(fp, "\"X\": %f,\n", X); 
+        fprintf(fp, "\"Y\": %f,\n", Y); 
+        fprintf(fp, "\"time\": %f,\n", time); 
+        fprintf(fp, "\"delta_x\": %f,\n", delta_x); 
+        fprintf(fp, "\"delta_y\": %f\n", delta_y); 
     }
 
     InitialConditionBound(Uc_local, FUc_local, GUc_local, sizexc, sizey, RANK, NP, start_ix_global);

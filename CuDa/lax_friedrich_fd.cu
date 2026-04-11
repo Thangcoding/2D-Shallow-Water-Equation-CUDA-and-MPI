@@ -287,14 +287,15 @@ int main(){
     }
 
     // store configuration 
-    fprintf(fp, "{\n");
-    fprintf(fp, "\"name\": \"lax friedrichs finite difference\",\n");
-    fprintf(fp, "\"H\": %f,\n", H);
-    fprintf(fp, "\"X\": %f,\n", X);
-    fprintf(fp, "\"Y\": %f,\n", Y);
-    fprintf(fp, "\"time\": %f,\n", time);
-    fprintf(fp, "\"delta_x\": %f,\n", delta_x);
-    fprintf(fp, "\"delta_y\": %f\n", delta_y);
+    fprintf(fp, "{\n"); 
+    fprintf(fp, "\"name\": \"lax wendroff finite difference\",\n");
+    fprintf(fp, "\"condition\": \"Transitive\",\n");
+    fprintf(fp, "\"H\": %f,\n", H); 
+    fprintf(fp, "\"X\": %f,\n", X); 
+    fprintf(fp, "\"Y\": %f,\n", Y); 
+    fprintf(fp, "\"time\": %f,\n", time); 
+    fprintf(fp, "\"delta_x\": %f,\n", delta_x); 
+    fprintf(fp, "\"delta_y\": %f\n", delta_y); 
     
 
     int step = 0;

@@ -14,7 +14,7 @@
 #define initial_v 10.0
 #define delta_x 0.5
 #define delta_y 0.5
-#define CB_name 'T'
+#define CB_name 'T' 
 #define C 0.5
 
 // Index 
@@ -295,6 +295,7 @@ int main(){
     // store configuration 
     fprintf(fp, "{\n"); 
     fprintf(fp, "\"name\": \"lax wendroff finite difference\",\n");
+    fprintf(fp, "\"condition\": \"Transitive\",\n");
     fprintf(fp, "\"H\": %f,\n", H); 
     fprintf(fp, "\"X\": %f,\n", X); 
     fprintf(fp, "\"Y\": %f,\n", Y); 

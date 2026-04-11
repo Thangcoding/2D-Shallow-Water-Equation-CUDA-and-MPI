@@ -267,14 +267,15 @@ int main(){
     FILE *fp = fopen("shallow_water_simulation.json", "w");
 
     // store configuration 
-    fprintf(fp, "{\n");
-    fprintf(fp, "\"name\": \"lax friedrichs finite volume\",\n");
-    fprintf(fp, "\"H\": %f,\n", H);
-    fprintf(fp, "\"X\": %f,\n", X);
-    fprintf(fp, "\"Y\": %f,\n", Y);
-    fprintf(fp, "\"time\": %f,\n", time);
-    fprintf(fp, "\"delta_x\": %f,\n", delta_x);
-    fprintf(fp, "\"delta_y\": %f\n", delta_y);
+    fprintf(fp, "{\n"); 
+    fprintf(fp, "\"name\": \"lax wendroff finite difference\",\n");
+    fprintf(fp, "\"condition\": \"Reflective\",\n");
+    fprintf(fp, "\"H\": %f,\n", H); 
+    fprintf(fp, "\"X\": %f,\n", X); 
+    fprintf(fp, "\"Y\": %f,\n", Y); 
+    fprintf(fp, "\"time\": %f,\n", time); 
+    fprintf(fp, "\"delta_x\": %f,\n", delta_x); 
+    fprintf(fp, "\"delta_y\": %f\n", delta_y); 
 
     // initial state
     InitialConditionBound(U,FU,GU, sizex, sizey);

@@ -386,14 +386,16 @@ int main() {
     return 1;
   }
 
-  fprintf(fp, "{\n");
-  fprintf(fp, "\"name\": \"lax friedrichs finite volume\",\n");
-  fprintf(fp, "\"H\": %f,\n", H);
-  fprintf(fp, "\"X\": %f,\n", X);
-  fprintf(fp, "\"Y\": %f,\n", Y);
-  fprintf(fp, "\"time\": %f,\n", TIME_MAX);
-  fprintf(fp, "\"delta_x\": %f,\n", delta_x);
-  fprintf(fp, "\"delta_y\": %f\n", delta_y);
+  // store configuration 
+  fprintf(fp, "{\n"); 
+  fprintf(fp, "\"name\": \"lax wendroff finite difference\",\n");
+  fprintf(fp, "\"condition\": \"Transitive\",\n");
+  fprintf(fp, "\"H\": %f,\n", H); 
+  fprintf(fp, "\"X\": %f,\n", X); 
+  fprintf(fp, "\"Y\": %f,\n", Y); 
+  fprintf(fp, "\"time\": %f,\n", time); 
+  fprintf(fp, "\"delta_x\": %f,\n", delta_x); 
+  fprintf(fp, "\"delta_y\": %f\n", delta_y); 
 
   dim3 blockDim(BLOCK_DIM_X, BLOCK_DIM_Y, 1);
   dim3 gridDim((sizex + blockDim.x - 1) / blockDim.x,

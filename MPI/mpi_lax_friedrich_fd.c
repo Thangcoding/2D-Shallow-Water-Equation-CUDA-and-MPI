@@ -302,14 +302,15 @@ int main(int argc, char *argv[]){
         if (fp == NULL) 
             perror("Failed to open file!!!");
         // store configuration 
-        fprintf(fp, "{\n");
-        fprintf(fp, "\"name\": \"lax friedrichs finite difference\",\n");
-        fprintf(fp, "\"H\": %f,\n", H);
-        fprintf(fp, "\"X\": %f,\n", X);
-        fprintf(fp, "\"Y\": %f,\n", Y);
-        fprintf(fp, "\"time\": %f,\n", time);
-        fprintf(fp, "\"delta_x\": %f,\n", delta_x);
-        fprintf(fp, "\"delta_y\": %f\n", delta_y);
+        fprintf(fp, "{\n"); 
+        fprintf(fp, "\"name\": \"lax wendroff finite difference\",\n");
+        fprintf(fp, "\"condition\": \"Transitive\",\n");
+        fprintf(fp, "\"H\": %f,\n", H); 
+        fprintf(fp, "\"X\": %f,\n", X); 
+        fprintf(fp, "\"Y\": %f,\n", Y); 
+        fprintf(fp, "\"time\": %f,\n", time); 
+        fprintf(fp, "\"delta_x\": %f,\n", delta_x); 
+        fprintf(fp, "\"delta_y\": %f\n", delta_y); 
         // initial step store 
         store_matrix(fp, U, step, sizex, sizey);
     }

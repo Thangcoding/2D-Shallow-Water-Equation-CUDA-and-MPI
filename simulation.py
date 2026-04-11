@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
 from mpl_toolkits.mplot3d import Axes3D
-import json
+import json  
 import numpy as np 
 import matplotlib.colors as mcolors
-PATH_FILE = 'C:/parallel_programming/shallow_water_equation/shallow_water_simulation.json'
+PATH_FILE = r"C:/2D-Shallow-Water-Equation-CUDA-and-MPI/Sequential/shallow_water_simulation.json"
 
 class Simulation:
     def __init__(self):
@@ -17,6 +17,7 @@ class Simulation:
         self.X = information['X']
         self.Y = information['Y']
         self.H = information['H']
+        self.condition = information['condition']
         self.name = information['name']
         self.total_step = information['total_step']
         self.delta_x = information['delta_x']
@@ -92,7 +93,7 @@ class Simulation:
                 facecolors=np.full(self.space_X.shape, '#0055ff'), 
                 edgecolor='none'
             )
-            ax.set_title(self.name  +f" - Frame {frame}")
+            ax.set_title(self.name + "-" + self.condition  +f" - Frame {frame}")
             return surf
 
         # Hiển thị hoạt ảnh
@@ -128,7 +129,7 @@ class Simulation:
         
             Q.set_UVC(u, v) 
             elapsed_hours = frame_idx 
-            title.set_text(f"Velocity field at step = {elapsed_hours:.2f}")
+            title.set_text(self.name + "-" + self.condition  + f" - time {elapsed_hours:.2f}")
             return Q, title
 
         anim = animation.FuncAnimation(
@@ -140,7 +141,7 @@ class Simulation:
 
 if __name__ == '__main__':
     S = Simulation()
-    anim = S.wave_3D_simulation()
+    anim = S.vector_field_simulation()
     plt.show()
 
 
