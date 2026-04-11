@@ -1,81 +1,196 @@
-# 2D Shallow Water Equation – CUDA and MPI Implementation
+# 2D Shallow Water Equation Simulation (MPI + CUDA)
 
-This repository contains implementations of numerical solvers for the **2D Shallow Water Equations** using different computational paradigms:
+High-performance simulation of the **Two-Dimensional Shallow Water Equations (SWE)** using **distributed and parallel programming techniques** with **MPI** and **CUDA**.
 
-- **Sequential (CPU)**
-- **MPI (distributed memory parallelism)**
-- **CUDA (GPU acceleration)**
-
-The numerical methods implemented include:
-
-- **Lax–Friedrichs scheme**
-- **Lax–Wendroff scheme**
-
-Both **finite difference (FD)** and **finite volume (FV)** formulations are provided.
+This project implements several numerical solvers for shallow water dynamics and accelerates them using both **distributed computing** (MPI) and **GPU computing** (CUDA). The goal is to study how different parallel computing paradigms improve the performance of physical simulations.
 
 ---
 
-# Repository Structure
+# Project Overview
 
-```
-2D-Shallow-Water-Equation-CUDA-and-MPI
-│
-├── CUDA
-│   ├── Lax_friedrich_fd.cu
-│   ├── Lax_friedrich_fv.cu
-│   └── Lax_wendroff_fd.cu
-│
-├── MPI
-│   ├── Lax_friedrich_fd.c
-│   ├── Lax_friedrich_fv.c
-│   └── Lax_wendroff_fd.c
-│
-└── Sequential
-    ├── Lax_friedrich_fd.c   (Finite Difference method with Lax–Friedrichs scheme)
-    ├── Lax_friedrich_fv.c   (Finite Volume method with Lax–Friedrichs scheme)
-    └── Lax_wendroff_fd.c    (Finite Difference method with Lax–Wendroff scheme)
-```
+The **2D Shallow Water Equations** are widely used in computational fluid dynamics to model large-scale water flow phenomena such as:
+
+- Ocean currents
+- Flood propagation
+- Storm surges
+- Tsunami waves
+
+These equations form a system of **hyperbolic partial differential equations** describing the evolution of water height and horizontal velocity fields.
+
+This project investigates how to solve these equations efficiently using **parallel computing**, focusing on:
+
+- Numerical stability
+- Algorithm accuracy
+- Parallel scalability
+- GPU acceleration
 
 ---
 
-# Implemented Numerical Methods
+# Mathematical Model
 
-## Lax–Friedrichs Scheme
-A first‑order explicit scheme commonly used for solving hyperbolic partial differential equations.  
-It introduces numerical dissipation that helps stabilize the solution.
+The shallow water equations describe the conservation of **mass** and **momentum**.
 
-## Lax–Wendroff Scheme
-A second‑order accurate method that improves accuracy compared to Lax–Friedrichs by incorporating Taylor expansion in time.
+State vector:
+
+\[
+U =
+\begin{pmatrix}
+h \\
+hv \\
+hu
+\end{pmatrix}
+\]
+
+Where:
+
+- **h(x,y,t)** — water height
+- **u(x,y,t)** — velocity in x-direction
+- **v(x,y,t)** — velocity in y-direction
+- **g** — gravitational acceleration
+
+Conservation form:
+
+\[
+\frac{\partial U}{\partial t}
++
+\frac{\partial F(U)}{\partial x}
++
+\frac{\partial G(U)}{\partial y}
+=
+0
+\]
+
+Flux functions:
+
+\[
+F(U)=
+\begin{pmatrix}
+hv \\
+hv^2+\frac{1}{2}gh^2 \\
+huv
+\end{pmatrix}
+\]
+
+\[
+G(U)=
+\begin{pmatrix}
+hu \\
+huv \\
+hu^2+\frac{1}{2}gh^2
+\end{pmatrix}
+\]
 
 ---
 
-# Parallel Implementations
+# Numerical Methods
 
-## CUDA Version
-The CUDA implementation accelerates the solver using **GPU parallelism**.
+This simulation solves the **2D Shallow Water Equations** using two widely used discretization approaches in computational fluid dynamics (CFD):
 
-## MPI Version
-The MPI implementation distributes the computational grid across multiple processes for **distributed-memory parallel computing**.
+- **Finite Difference Method (FDM)**
+- **Finite Volume Method (FVM)**
 
-## Sequential Version
-A baseline CPU implementation used for validation and performance comparison.
+Both approaches approximate the continuous partial differential equations (PDEs) on a discrete spatial grid.
 
 ---
 
-# Purpose
+# Finite Difference Method (FDM)
 
-This project is intended for:
+The **Finite Difference Method** approximates derivatives in the governing equations using differences between neighboring grid points.
 
-- studying **numerical methods for hyperbolic PDEs**
-- experimenting with **GPU computing (CUDA)**
-- exploring **distributed parallel computing (MPI)**
-- benchmarking performance across different computing architectures
+Instead of computing the exact derivative:
+
+∂u/∂x
+
+The method approximates it using expressions such as:
+
+(uᵢ₊₁ − uᵢ₋₁) / (2Δx)
+
+Key characteristics:
+
+- Simple to implement
+- Computationally efficient
+- Works best on structured grids
+- Does **not explicitly guarantee conservation of physical quantities**
+
+Because of its simplicity, FDM is often used in early-stage numerical solvers and academic simulations.
+
+### Implemented Schemes
+
+#### Lax-Friedrichs Scheme
+
+Characteristics:
+
+- First-order accurate
+- Very stable
+- Introduces numerical diffusion
+
+Suitable for **initial testing and stability verification**.
 
 ---
 
-# Possible Extensions
+#### Lax-Wendroff Scheme
 
-- Add visualization for simulation results
-- Compare performance between CPU, MPI, and CUDA implementations
-- Implement higher‑order numerical schemes
-- Extend to more complex boundary conditions
+Characteristics:
+
+- Second-order accurate
+- Reduced numerical diffusion
+- Higher accuracy for smooth solutions
+
+However, it may introduce **numerical oscillations near discontinuities** without additional stabilization.
+
+---
+
+# Finite Volume Method (FVM)
+
+The **Finite Volume Method** solves conservation laws by integrating the governing equations over small control volumes (grid cells).
+
+Instead of approximating derivatives directly, FVM computes the **flux of conserved quantities across cell boundaries**.
+
+For each grid cell:
+
+Rate of change inside cell  
+= Flux entering − Flux leaving
+
+Key advantages:
+
+- Guarantees **local conservation of mass and momentum**
+- Handles **shocks and discontinuities** better
+- Widely used in **computational fluid dynamics (CFD)** and **industrial solvers**
+
+Because the **Shallow Water Equations are conservation laws**, FVM is often the preferred method for physically accurate simulations.
+
+### Implemented Scheme
+
+#### Lax-Friedrichs Finite Volume
+
+This solver computes numerical fluxes at cell interfaces using the Lax-Friedrichs flux formulation.
+
+Characteristics:
+
+- Conservative formulation
+- Robust and stable
+- Suitable for parallel implementations (MPI/CUDA)
+
+---
+
+# CFL Stability Condition
+
+To maintain numerical stability, the simulation enforces the **Courant–Friedrichs–Lewy (CFL)** condition:
+
+\[
+\Delta t \le C
+\min
+\left(
+\frac{\Delta x}{|u|+\sqrt{gh}},
+\frac{\Delta y}{|v|+\sqrt{gh}}
+\right)
+\]
+
+Where:
+
+- **C** is the CFL safety factor
+- **Δx, Δy** are spatial resolutions
+
+---
+
+
