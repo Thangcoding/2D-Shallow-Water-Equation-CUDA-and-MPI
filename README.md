@@ -50,14 +50,12 @@ Where:
 
 Conservation form:
 
-$$
-\frac{\partial U}{\partial t}
+$$\frac{\partial U}{\partial t}
 +
 \frac{\partial F(U)}{\partial x}
 +
 \frac{\partial G(U)}{\partial y}
-=
-0$$
+= 0$$
 
 Flux functions:
 
