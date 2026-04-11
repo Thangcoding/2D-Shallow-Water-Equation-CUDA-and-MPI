@@ -32,14 +32,14 @@ The shallow water equations describe the conservation of **mass** and **momentum
 
 State vector:
 
-\[
+$$
 U =
 \begin{pmatrix}
 h \\
 hv \\
 hu
 \end{pmatrix}
-\]
+$$
 
 Where:
 
@@ -50,7 +50,7 @@ Where:
 
 Conservation form:
 
-\[
+$$
 \frac{\partial U}{\partial t}
 +
 \frac{\partial F(U)}{\partial x}
@@ -58,27 +58,27 @@ Conservation form:
 \frac{\partial G(U)}{\partial y}
 =
 0
-\]
+$$
 
 Flux functions:
 
-\[
+$$
 F(U)=
 \begin{pmatrix}
 hv \\
 hv^2+\frac{1}{2}gh^2 \\
 huv
 \end{pmatrix}
-\]
+$$
 
-\[
+$$
 G(U)=
 \begin{pmatrix}
 hu \\
 huv \\
 hu^2+\frac{1}{2}gh^2
 \end{pmatrix}
-\]
+$$
 
 ---
 
@@ -148,7 +148,7 @@ Instead of approximating derivatives directly, FVM computes the **flux of conser
 
 For each grid cell:
 
-Rate of change inside cell  
+Rate of change inside the cell  
 = Flux entering − Flux leaving
 
 Key advantages:
@@ -177,14 +177,14 @@ Characteristics:
 
 To maintain numerical stability, the simulation enforces the **Courant–Friedrichs–Lewy (CFL)** condition:
 
-\[
+$$
 \Delta t \le C
 \min
 \left(
 \frac{\Delta x}{|u|+\sqrt{gh}},
 \frac{\Delta y}{|v|+\sqrt{gh}}
 \right)
-\]
+$$
 
 Where:
 
