@@ -264,6 +264,7 @@ Example:
 ![Vector Field](demo/2D-water-Reflective-vector-field.gif)
 
 ![Vector Field](demo/2D-water-Transitive-vector-field.gif)
+
 ---
 
 ## Initial Conditions
