@@ -312,21 +312,26 @@ The performance is measured with respect to the **number of grid cells** used in
 ```text 
 2D-Shallow-Water-Equation-CUDA-and-MPI
 │
-├── cuda_solver.cu # CUDA implementation of the solver
-├── mpi_solver.cpp # MPI parallel solver
-├── sequential_solver.cpp # Sequential CPU solver
+├── Cuda
+│  |__ lax_friedrich_fd.cu
+|  |__ lax_friedrich_fv.cu
+|  |__ lax_wendroff_fd.cu
+|  |__ shallow_water_simulation.json # store simulation numerical result 
+|__ MPI
+|  |__ mpi_lax_friedrich_fd.cu
+|  |__ mpi_lax_friedrich_fv.cu
+|  |__ mpi_lax_wendroff_fd.cu
+|  |__ shallow_water_simulation.json
+|
+|___ Sequential
+|  |__ lax_friedrich_fd.cu
+|  |__ lax_friedrich_fv.cu
+|  |__ lax_wendroff_fd.cu
+│  |__ shallow_water_simulation.json
+| 
+├── images # images performance
+|__ demo # video simulation
 │
-├── simulation.py # Python script for running simulation and visualization
-├── shallow_water_simulation.json # Simulation configuration file
-│
-├── docs/ # Documentation and demo assets
-│ ├── simulation_3d.gif
-│ ├── vector_field.gif
-│ ├── performance_sequential.png
-│ ├── performance_mpi.png
-│ └── performance_cuda.png
-│
-├── README.md # Project documentation
 └── report.pdf # Project report
 ```
 
