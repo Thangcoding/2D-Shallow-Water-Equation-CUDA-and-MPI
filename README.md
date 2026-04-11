@@ -273,7 +273,38 @@ Two types of boundary conditions are demonstrated:
 
 - **Reflective boundary** — waves reflect when reaching the domain boundaries.
 - **Transmissive boundary** — waves propagate out of the domain without reflection.
-```
 
+---
 
+# Performance Results
 
+We evaluate the computational performance of three implementations:
+
+- **Sequential (CPU)**
+- **MPI (Distributed CPU parallelism)**
+- **CUDA (GPU acceleration)**
+
+The performance is measured with respect to the **number of grid cells** used in the simulation domain.
+
+---
+
+## Performance Comparison
+
+### Lax-friedrich-finite-volume
+
+![Sequential Performance](images/Lax-friedrich-fv.png)
+
+---
+
+### Lax-friedrich-finite-difference
+
+![MPI Performance](images/Lax-friedrichs-fd.png)
+
+---
+
+### Lax-wendroff-finite-difference
+
+![CUDA Performance](images/Lax-wendroff-fd.png)
+
+---
+#
